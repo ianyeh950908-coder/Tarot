@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上塔羅占卜</title>
+    <style>
+        body { background-color: #1a1a2e; color: #e94560; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .container { text-align: center; background: #16213e; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 400px; width: 90%; }
+        .card-display { width: 120px; height: 200px; background: #0f3460; border: 2px solid #e94560; border-radius: 10px; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 3rem; transition: transform 0.6s ease; }
+        .reversed { transform: rotate(180deg); }
+        button { background-color: #e94560; color: white; border: none; padding: 12px 24px; font-size: 1rem; border-radius: 5px; cursor: pointer; }
+        #result { margin-top: 20px; color: #fff; }
+        h2 { margin-top: 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>塔羅之靈</h2>
+    <div id="card-box" class="card-display">?</div>
+    <button onclick="drawCard()">點擊抽牌</button>
+    <div id="result">
+        <h3 id="card-name"></h3>
+        <p id="card-meaning"></p>
+    </div>
+</div>
+<script>
+    const tarotCards = [
+        { name: "愚者", up: "新開始、冒險。", rev: "魯莽、疏忽。" },
+        { name: "魔術師", up: "意志力、創造力。", rev: "操縱、才華未現。" },
+        { name: "女教皇", up: "直覺、內在智慧。", rev: "隱藏動機、忽視直覺。" },
+        { name: "女皇", up: "豐饒、母性。", rev: "依賴、缺乏安全感。" },
+        { name: "皇帝", up: "權威、結構。", rev: "暴政、缺乏紀律。" },
+        { name: "教皇", up: "傳統、精神引導。", rev: "叛逆、挑戰現狀。" },
+        { name: "戀人", up: "愛、和諧。", rev: "不合、自我懷疑。" },
+        { name: "戰車", up: "勝利、意志力。", rev: "失控、方向不明。" },
+        { name: "力量", up: "勇氣、耐性。", rev: "軟弱、信心不足。" },
+        { name: "隱士", up: "內省、尋求真理。", rev: "孤立、疏遠。" },
+        { name: "命運之輪", up: "轉機、運氣。", rev: "厄運、抵抗改變。" },
+        { name: "正義", up: "公平、真理。", rev: "不公平、逃避責任。" },
+        { name: "倒吊人", up: "犧牲、等待。", rev: "停滯、徒勞無功。" },
+        { name: "死神", up: "結束、轉變。", rev: "恐懼改變、停滯。" },
+        { name: "節制", up: "平衡、耐性。", rev: "失衡、缺乏遠見。" },
+        { name: "惡魔", up: "束縛、物質主義。", rev: "釋放、覺醒。" },
+        { name: "高塔", up: "劇變、啟示。", rev: "延遲的災難。" },
+        { name: "星星", up: "希望、靈感。", rev: "絕望、失去信念。" },
+        { name: "月亮", up: "恐懼、幻象。", rev: "解除誤會、真相大白。" },
+        { name: "太陽", up: "成功、快樂。", rev: "消極、暫時挫折。" },
+        { name: "審判", up: "覺醒、重生。", rev: "自我懷疑、錯失良機。" },
+        { name: "世界", up: "完成、圓滿。", rev: "未竟之志。" }
+    ];
+    function drawCard() {
+        const card = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+        const isRev = Math.random() > 0.5;
+        const cardBox = document.getElementById('card-box');
+        cardBox.innerText = "🔮";
+        cardBox.className = isRev ? "card-display reversed" : "card-display";
+        document.getElementById('card-name').innerText = card.name + (isRev ? " (逆位)" : " (正位)");
+        document.getElementById('card-meaning').innerText = "啟示：" + (isRev ? card.rev : card.up);
+    }
+</script>
+</body>
+</html>

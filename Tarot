@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上塔羅占卜</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e94560;
+            font-family: "Microsoft JhengHei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #16213e;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .card-display {
+            width: 150px;
+            height: 250px;
+            background: #0f3460;
+            border: 2px solid #e94560;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .reversed {
+            transform: rotate(180deg);
+        }
+
+        button {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #f07185;
+        }
+
+        #result {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        h2 { color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>塔羅之靈</h2>
+    <p>閉上眼，默想你的問題...</p>
+    
+    <div id="card-box" class="card-display">？</div>
+    
+    <button onclick="drawCard()">點擊抽牌</button>
+
+    <div id="result">
+        <h3 id="card-name"></h3>
+        <p id="card-meaning"></p>
+    </div>
+</div>
+
+<script>
+    const tarotCards = [
+        { name: "愚者 (The Fool)", up: "新開始、冒險、純真。", rev: "魯莽、疏忽、遲疑。" },
+        { name: "魔術師 (The Magician)", up: "意志力、顯化、能力。", rev: "操縱、未開發的才華。" },
+        { name: "女教皇 (The High Priestess)", up: "直覺、神秘、內在智慧。", rev: "隱藏動機、忽視直覺。" },
+        { name: "女皇 (The Empress)", up: "豐饒、自然、感官享受。", rev: "依賴、創造力受阻。" },
+        { name: "皇帝 (The Emperor)", up: "權威、結構、領導力。", rev: "暴政、僵化、控制欲。" },
+        { name: "教皇 (The Hierophant)", up: "傳統、精神引導、遵從。", rev: "叛逆、挑戰現狀。" },
+        { name: "戀人 (The Lovers)", up: "愛、和諧、價值觀契合。", rev: "不合、失衡、自我懷疑。" },
+        { name: "戰車 (The Chariot)", up: "勝利、決心、掌控。", rev: "失去控制、方向不明。" }
+        // 為了簡潔，這裡先列出前幾張，你可以自行比照 Python 版本補齊
+    ];
+
+    function drawCard() {
+        // 隨機選牌
+        const randomIndex = Math.floor(Math.random() * tarotCards.length);
+        const card = tarotCards[randomIndex];
+        
+        // 隨機正逆位
+        const isReversed = Math.random() > 0.5;
+        const orientation = isReversed ? " (逆位)" : " (正位)";
+        const meaning = isReversed ? card.rev : card.up;
+
+        // 更新介面
+        const cardBox = document.getElementById('card-box');
+        cardBox.innerText = "🎴";
+        if (isReversed) {
+            cardBox.classList.add('reversed');
+        } else {
+            cardBox.classList.remove('reversed');
+        }
+
+        document.getElementById('card-name').innerText = card.name + orientation;
+        document.getElementById('card-meaning').innerText = "啟示：" + meaning;
+    }
+</script>
+
+</body>
+</html>
